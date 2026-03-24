@@ -137,9 +137,9 @@ function Get-PortStatus {
     $results = @()
 
     foreach ($port in ($PortMap.Keys | Sort-Object {[int]$_})) {
-        $matches = @($listenConnections | Where-Object { $_.LocalPort -eq [int]$port } | Sort-Object LocalAddress, OwningProcess)
+        $portConnections = @($listenConnections | Where-Object { $_.LocalPort -eq [int]$port } | Sort-Object LocalAddress, OwningProcess)
 
-        if ($matches.Count -eq 0) {
+        if ($portConnections.Count -eq 0) {
             $results += [PSCustomObject]@{
                 Port         = [int]$port
                 Service      = [string]$PortMap[$port]
@@ -150,9 +150,9 @@ function Get-PortStatus {
             continue
         }
 
-        $bindings = foreach ($match in $matches) {
-            $processName = Get-ProcessNameById -ProcessId $match.OwningProcess
-            "{0} ({1}:{2})" -f $processName, $match.LocalAddress, $match.OwningProcess
+        $bindings = foreach ($portConnection in $portConnections) {
+            $processName = Get-ProcessNameById -ProcessId $portConnection.OwningProcess
+            "{0} ({1}:{2})" -f $processName, $portConnection.LocalAddress, $portConnection.OwningProcess
         }
 
         $results += [PSCustomObject]@{
