@@ -9,7 +9,7 @@
 ### 当前状态
 
 - 当前已经提供 Windows 和 Ubuntu 两侧的基础哈希脚本。
-- `Windows/` 目录中包含 PowerShell 版文件哈希与文本哈希脚本。
+- `Windows/` 目录中包含 PowerShell 版文件哈希、文本哈希和 MinIO 连接测试脚本。
 - `Ubuntu/` 目录中包含对应的 shell 版文件哈希与文本哈希脚本。
 - `Assets/` 目录预留给后续辅助文件使用。
 
@@ -26,6 +26,7 @@ SystemTools/
 ├─ Windows/
 │  ├─ file_md5.ps1
 │  ├─ file_sha256.ps1
+│  ├─ minio_connect_test.ps1
 │  ├─ text_md5.ps1
 │  └─ text_sha256.ps1
 ├─ README.md
@@ -38,6 +39,7 @@ Windows：
 
 - `file_md5.ps1`：计算单个文件的 MD5。
 - `file_sha256.ps1`：计算单个文件的 SHA256。
+- `minio_connect_test.ps1`：通过 `IP:Port` 检测 MinIO 服务是否可连接。
 - `text_md5.ps1`：计算文本的 MD5，可选盐值。
 - `text_sha256.ps1`：计算文本的 SHA256，可选盐值。
 
@@ -55,6 +57,7 @@ Windows：
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\Windows\file_md5.ps1 .\README.md
 powershell -ExecutionPolicy Bypass -File .\Windows\file_sha256.ps1 .\README.md
+powershell -ExecutionPolicy Bypass -File .\Windows\minio_connect_test.ps1 192.168.1.100:9000
 powershell -ExecutionPolicy Bypass -File .\Windows\text_md5.ps1 "abc"
 powershell -ExecutionPolicy Bypass -File .\Windows\text_md5.ps1 "abc" "salt"
 powershell -ExecutionPolicy Bypass -File .\Windows\text_sha256.ps1 "abc"
