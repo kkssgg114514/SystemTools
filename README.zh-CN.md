@@ -9,7 +9,7 @@
 ### 当前状态
 
 - 当前已经提供 Windows 和 Ubuntu 两侧的基础哈希脚本。
-- `Windows/` 目录中包含 PowerShell 版文件哈希、文本哈希、MinIO 连接测试和系统信息采集脚本。
+- `Windows/` 目录下的 PowerShell 脚本现已按哈希、网络测试、系统信息三个分类整理。
 - `Ubuntu/` 目录中包含对应的 shell 版文件哈希与文本哈希脚本。
 - `Assets/` 目录预留给后续辅助文件使用。
 
@@ -24,12 +24,25 @@ SystemTools/
 │  ├─ text_md5.sh
 │  └─ text_sha256.sh
 ├─ Windows/
-│  ├─ file_md5.ps1
-│  ├─ file_sha256.ps1
-│  ├─ minio_connect_test.ps1
-│  ├─ system_info.ps1
-│  ├─ text_md5.ps1
-│  └─ text_sha256.ps1
+│  ├─ Hash/
+│  │  ├─ file_md5.ps1
+│  │  ├─ file_sha256.ps1
+│  │  ├─ text_md5.ps1
+│  │  └─ text_sha256.ps1
+│  ├─ Network/
+│  │  └─ minio_connect_test.ps1
+│  └─ SystemInfo/
+│     ├─ common.ps1
+│     ├─ get_common_port_status.ps1
+│     ├─ get_cpu_info.ps1
+│     ├─ get_disk_info.ps1
+│     ├─ get_gpu_info.ps1
+│     ├─ get_memory_info.ps1
+│     ├─ get_motherboard_info.ps1
+│     ├─ get_network_info.ps1
+│     ├─ get_resource_usage.ps1
+│     ├─ get_system_overview.ps1
+│     └─ system_info.ps1
 ├─ README.md
 └─ README.zh-CN.md
 ```
@@ -38,12 +51,10 @@ SystemTools/
 
 Windows：
 
-- `file_md5.ps1`：计算单个文件的 MD5。
-- `file_sha256.ps1`：计算单个文件的 SHA256。
-- `minio_connect_test.ps1`：通过 `IP:Port` 检测 MinIO 服务是否可连接。
-- `system_info.ps1`：一键采集系统型号、主板、Windows 版本、网络信息、CPU、显卡、硬盘、内存、当前资源占用以及常用端口占用情况。
-- `text_md5.ps1`：计算文本的 MD5，可选盐值。
-- `text_sha256.ps1`：计算文本的 SHA256，可选盐值。
+- `Hash/`：文件哈希与文本哈希脚本。
+- `Network/minio_connect_test.ps1`：通过 `IP:Port` 检测 MinIO 服务是否可连接。
+- `SystemInfo/system_info.ps1`：统一调度系统信息各子脚本并输出完整报告。
+- `SystemInfo/get_*.ps1`：按系统概览、主板、网络、CPU、显卡、硬盘、内存、资源占用、常用端口拆分的独立脚本。
 
 Ubuntu：
 
@@ -57,14 +68,15 @@ Ubuntu：
 Windows：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\Windows\file_md5.ps1 .\README.md
-powershell -ExecutionPolicy Bypass -File .\Windows\file_sha256.ps1 .\README.md
-powershell -ExecutionPolicy Bypass -File .\Windows\minio_connect_test.ps1 192.168.1.100:9000
-powershell -ExecutionPolicy Bypass -File .\Windows\system_info.ps1
-powershell -ExecutionPolicy Bypass -File .\Windows\text_md5.ps1 "abc"
-powershell -ExecutionPolicy Bypass -File .\Windows\text_md5.ps1 "abc" "salt"
-powershell -ExecutionPolicy Bypass -File .\Windows\text_sha256.ps1 "abc"
-powershell -ExecutionPolicy Bypass -File .\Windows\text_sha256.ps1 "abc" "salt"
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\file_md5.ps1 .\README.md
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\file_sha256.ps1 .\README.md
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\text_md5.ps1 "abc"
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\text_md5.ps1 "abc" "salt"
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\text_sha256.ps1 "abc"
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\text_sha256.ps1 "abc" "salt"
+powershell -ExecutionPolicy Bypass -File .\Windows\Network\minio_connect_test.ps1 192.168.1.100:9000
+powershell -ExecutionPolicy Bypass -File .\Windows\SystemInfo\system_info.ps1
+powershell -ExecutionPolicy Bypass -File .\Windows\SystemInfo\get_gpu_info.ps1
 ```
 
 Ubuntu：

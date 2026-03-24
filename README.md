@@ -9,7 +9,7 @@ This repository is intended to organize system tools and scripts for future Wind
 ### Current Status
 
 - Basic hashing scripts are available for both Windows and Ubuntu.
-- `Windows/` currently contains PowerShell scripts for file hashing, text hashing, MinIO connectivity testing, and system information collection.
+- `Windows/` scripts are now grouped by category into hashing, network testing, and system information subdirectories.
 - `Ubuntu/` currently contains shell scripts for the same hashing tasks.
 - `Assets/` is reserved for future supporting files.
 
@@ -24,12 +24,25 @@ SystemTools/
 │  ├─ text_md5.sh
 │  └─ text_sha256.sh
 ├─ Windows/
-│  ├─ file_md5.ps1
-│  ├─ file_sha256.ps1
-│  ├─ minio_connect_test.ps1
-│  ├─ system_info.ps1
-│  ├─ text_md5.ps1
-│  └─ text_sha256.ps1
+│  ├─ Hash/
+│  │  ├─ file_md5.ps1
+│  │  ├─ file_sha256.ps1
+│  │  ├─ text_md5.ps1
+│  │  └─ text_sha256.ps1
+│  ├─ Network/
+│  │  └─ minio_connect_test.ps1
+│  └─ SystemInfo/
+│     ├─ common.ps1
+│     ├─ get_common_port_status.ps1
+│     ├─ get_cpu_info.ps1
+│     ├─ get_disk_info.ps1
+│     ├─ get_gpu_info.ps1
+│     ├─ get_memory_info.ps1
+│     ├─ get_motherboard_info.ps1
+│     ├─ get_network_info.ps1
+│     ├─ get_resource_usage.ps1
+│     ├─ get_system_overview.ps1
+│     └─ system_info.ps1
 ├─ README.md
 └─ README.zh-CN.md
 ```
@@ -38,12 +51,10 @@ SystemTools/
 
 Windows:
 
-- `file_md5.ps1`: Compute the MD5 hash of a single file.
-- `file_sha256.ps1`: Compute the SHA256 hash of a single file.
-- `minio_connect_test.ps1`: Test whether a MinIO service is reachable by `IP:Port`.
-- `system_info.ps1`: Collect system model, motherboard, Windows version, network information, CPU, GPU, disk, memory, current resource usage, and common port status in one run.
-- `text_md5.ps1`: Compute the MD5 hash of input text, with an optional salt.
-- `text_sha256.ps1`: Compute the SHA256 hash of input text, with an optional salt.
+- `Hash/`: File and text hashing scripts.
+- `Network/minio_connect_test.ps1`: Test whether a MinIO service is reachable by `IP:Port`.
+- `SystemInfo/system_info.ps1`: Dispatcher script that runs all system info components and prints a combined report.
+- `SystemInfo/get_*.ps1`: Modular system info scripts for overview, motherboard, network, CPU, GPU, disk, memory, resource usage, and common ports.
 
 Ubuntu:
 
@@ -57,14 +68,15 @@ Ubuntu:
 Windows:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\Windows\file_md5.ps1 .\README.md
-powershell -ExecutionPolicy Bypass -File .\Windows\file_sha256.ps1 .\README.md
-powershell -ExecutionPolicy Bypass -File .\Windows\minio_connect_test.ps1 192.168.1.100:9000
-powershell -ExecutionPolicy Bypass -File .\Windows\system_info.ps1
-powershell -ExecutionPolicy Bypass -File .\Windows\text_md5.ps1 "abc"
-powershell -ExecutionPolicy Bypass -File .\Windows\text_md5.ps1 "abc" "salt"
-powershell -ExecutionPolicy Bypass -File .\Windows\text_sha256.ps1 "abc"
-powershell -ExecutionPolicy Bypass -File .\Windows\text_sha256.ps1 "abc" "salt"
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\file_md5.ps1 .\README.md
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\file_sha256.ps1 .\README.md
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\text_md5.ps1 "abc"
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\text_md5.ps1 "abc" "salt"
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\text_sha256.ps1 "abc"
+powershell -ExecutionPolicy Bypass -File .\Windows\Hash\text_sha256.ps1 "abc" "salt"
+powershell -ExecutionPolicy Bypass -File .\Windows\Network\minio_connect_test.ps1 192.168.1.100:9000
+powershell -ExecutionPolicy Bypass -File .\Windows\SystemInfo\system_info.ps1
+powershell -ExecutionPolicy Bypass -File .\Windows\SystemInfo\get_gpu_info.ps1
 ```
 
 Ubuntu:
