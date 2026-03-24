@@ -9,7 +9,7 @@ This repository is intended to organize system tools and scripts for future Wind
 ### Current Status
 
 - Basic hashing scripts are available for both Windows and Ubuntu.
-- `Windows/` currently contains PowerShell scripts for file hashing, text hashing, and MinIO connectivity testing.
+- `Windows/` currently contains PowerShell scripts for file hashing, text hashing, MinIO connectivity testing, and system information collection.
 - `Ubuntu/` currently contains shell scripts for the same hashing tasks.
 - `Assets/` is reserved for future supporting files.
 
@@ -27,6 +27,7 @@ SystemTools/
 │  ├─ file_md5.ps1
 │  ├─ file_sha256.ps1
 │  ├─ minio_connect_test.ps1
+│  ├─ system_info.ps1
 │  ├─ text_md5.ps1
 │  └─ text_sha256.ps1
 ├─ README.md
@@ -40,6 +41,7 @@ Windows:
 - `file_md5.ps1`: Compute the MD5 hash of a single file.
 - `file_sha256.ps1`: Compute the SHA256 hash of a single file.
 - `minio_connect_test.ps1`: Test whether a MinIO service is reachable by `IP:Port`.
+- `system_info.ps1`: Collect system model, motherboard, Windows version, network information, CPU, GPU, disk, memory, current resource usage, and common port status in one run.
 - `text_md5.ps1`: Compute the MD5 hash of input text, with an optional salt.
 - `text_sha256.ps1`: Compute the SHA256 hash of input text, with an optional salt.
 
@@ -58,6 +60,7 @@ Windows:
 powershell -ExecutionPolicy Bypass -File .\Windows\file_md5.ps1 .\README.md
 powershell -ExecutionPolicy Bypass -File .\Windows\file_sha256.ps1 .\README.md
 powershell -ExecutionPolicy Bypass -File .\Windows\minio_connect_test.ps1 192.168.1.100:9000
+powershell -ExecutionPolicy Bypass -File .\Windows\system_info.ps1
 powershell -ExecutionPolicy Bypass -File .\Windows\text_md5.ps1 "abc"
 powershell -ExecutionPolicy Bypass -File .\Windows\text_md5.ps1 "abc" "salt"
 powershell -ExecutionPolicy Bypass -File .\Windows\text_sha256.ps1 "abc"
